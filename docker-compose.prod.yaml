@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=production
+      # In production, these should ideally be set in your CI/CD or deployment platform,
+      # but they are placed here to indicate what environment variables are expected.
+      - DSN=${DSN} 
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=8080
+    restart: always
