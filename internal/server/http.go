@@ -96,7 +96,7 @@ func Start(db *gorm.DB, cfg *config.Config) {
 	}))
 
 	e.GET("/health", func(c *echo.Context) error {
-		return c.String(http.StatusOK, "The app is running!")
+		return c.String(http.StatusOK, "The app is healthy!")
 	})
 
 	// Setup dependencies
