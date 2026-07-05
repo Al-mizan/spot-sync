@@ -4,6 +4,8 @@ import (
 	"spotsync/internal/domain/user"
 	"spotsync/internal/domain/zone"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Reservation struct {
@@ -14,6 +16,7 @@ type Reservation struct {
 	Status       string           `gorm:"type:varchar(20);not null;default:'active'" json:"status"`
 	CreatedAt    time.Time        `json:"created_at"`
 	UpdatedAt    time.Time        `json:"updated_at"`
+	DeletedAt    gorm.DeletedAt   `gorm:"index" json:"-"`
 	User         user.User        `gorm:"foreignKey:UserID" json:"user,omitempty"`
 	Zone         zone.ParkingZone `gorm:"foreignKey:ZoneID" json:"zone,omitempty"`
 }
