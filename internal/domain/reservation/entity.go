@@ -1,7 +1,6 @@
 package reservation
 
 import (
-	// "spotsync/internal/domain/reservation/dto"
 	"spotsync/internal/domain/user"
 	"spotsync/internal/domain/zone"
 	"time"
@@ -18,15 +17,3 @@ type Reservation struct {
 	User         user.User        `gorm:"foreignKey:UserID" json:"user,omitempty"`
 	Zone         zone.ParkingZone `gorm:"foreignKey:ZoneID" json:"zone,omitempty"`
 }
-
-// func (e *Reservation) ToResponse() *dto.Response {
-// 	return &dto.Response{
-// 		ID:           e.ID,
-// 		UserID:       e.UserID,
-// 		ZoneID:       e.ZoneID,
-// 		LicensePlate: e.LicensePlate,
-// 		Status:       e.Status,
-// 		CreatedAt:    e.CreatedAt,
-// 		UpdatedAt:    e.UpdatedAt,
-// 	}
-// }
