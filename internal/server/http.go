@@ -44,7 +44,11 @@ func Start(db *gorm.DB, cfg *config.Config) {
 	e.HTTPErrorHandler = func(c *echo.Context, err error) {
 		var appErr *apperror.AppError
 		if errors.As(err, &appErr) {
-			_ = httpresponse.Error(c, appErr.Code, appErr.Message, appErr.Err.Error())
+			var errDetails any
+			if appErr.Err != nil {
+				errDetails = appErr.Err.Error()
+			}
+			_ = httpresponse.Error(c, appErr.Code, appErr.Message, errDetails)
 			return
 		}
 
