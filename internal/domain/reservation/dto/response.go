@@ -1,0 +1,43 @@
+package dto
+
+import "time"
+
+type ReservationResponse struct {
+	ID           uint      `json:"id"`
+	UserID       uint      `json:"user_id"`
+	ZoneID       uint      `json:"zone_id"`
+	LicensePlate string    `json:"license_plate"`
+	Status       string    `json:"status"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+}
+
+type MyReservationResponse struct {
+	ID           uint             `json:"id"`
+	LicensePlate string           `json:"license_plate"`
+	Status       string           `json:"status"`
+	Zone         ZoneMiniResponse `json:"zone"`
+	CreatedAt    time.Time        `json:"created_at"`
+}
+
+type ZoneMiniResponse struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+	Type string `json:"type"`
+}
+
+type AdminReservationResponse struct {
+	ID           uint             `json:"id"`
+	User         UserMiniResponse `json:"user"`
+	Zone         ZoneMiniResponse `json:"zone"`
+	LicensePlate string           `json:"license_plate"`
+	Status       string           `json:"status"`
+	CreatedAt    time.Time        `json:"created_at"`
+	UpdatedAt    time.Time        `json:"updated_at"`
+}
+
+type UserMiniResponse struct {
+	ID    uint   `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}

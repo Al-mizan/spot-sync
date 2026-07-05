@@ -1,0 +1,32 @@
+package reservation
+
+import (
+	// "spotsync/internal/domain/reservation/dto"
+	"spotsync/internal/domain/user"
+	"spotsync/internal/domain/zone"
+	"time"
+)
+
+type Reservation struct {
+	ID           uint             `gorm:"primaryKey" json:"id"`
+	UserID       uint             `gorm:"not null" json:"user_id"`
+	ZoneID       uint             `gorm:"not null" json:"zone_id"`
+	LicensePlate string           `gorm:"type:varchar(15);not null" json:"license_plate"`
+	Status       string           `gorm:"type:varchar(20);not null;default:'active'" json:"status"`
+	CreatedAt    time.Time        `json:"created_at"`
+	UpdatedAt    time.Time        `json:"updated_at"`
+	User         user.User        `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	Zone         zone.ParkingZone `gorm:"foreignKey:ZoneID" json:"zone,omitempty"`
+}
+
+// func (e *Reservation) ToResponse() *dto.Response {
+// 	return &dto.Response{
+// 		ID:           e.ID,
+// 		UserID:       e.UserID,
+// 		ZoneID:       e.ZoneID,
+// 		LicensePlate: e.LicensePlate,
+// 		Status:       e.Status,
+// 		CreatedAt:    e.CreatedAt,
+// 		UpdatedAt:    e.UpdatedAt,
+// 	}
+// }

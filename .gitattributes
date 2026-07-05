@@ -1,0 +1,24 @@
+# Apply text attribute to all files
+* text=auto
+
+*.go text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Apply binary attribute to specific file types
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.out binary
+*.test binary
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+
+# Disable auto conversion for makefile (Windows/Linux line endings)
+Makefile text eol=lf
