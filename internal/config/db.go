@@ -11,7 +11,10 @@ import (
 
 func ConnectDatabase(cfg *Config) (*gorm.DB, error) {
 	dsn := cfg.Dsn
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true, // disables implicit prepared statement usage, fixing PgBouncer transaction pooling issues
+	}), &gorm.Config{
 		TranslateError: true,
 	})
 
