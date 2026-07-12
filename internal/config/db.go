@@ -10,12 +10,16 @@ import (
 )
 
 func ConnectDatabase(cfg *Config) (*gorm.DB, error) {
-	dsn := cfg.Dsn
+	// db, err := gorm.Open(postgres.New(postgres.Config{
+	// 	DSN:                  dsn,
+	// 	PreferSimpleProtocol: true, // disables implicit prepared statement usage, fixing PgBouncer transaction pooling issues
+	// }), &gorm.Config{
+	// 	TranslateError: false,
+	// })
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  dsn,
-		PreferSimpleProtocol: true, // disables implicit prepared statement usage, fixing PgBouncer transaction pooling issues
+		DSN: cfg.Dsn,
 	}), &gorm.Config{
-		TranslateError: true,
+		TranslateError: false,
 	})
 
 	if err != nil {
@@ -31,6 +35,10 @@ func ConnectDatabase(cfg *Config) (*gorm.DB, error) {
 	sqlDB.SetMaxIdleConns(25)
 	sqlDB.SetConnMaxLifetime(time.Hour)
 	sqlDB.SetConnMaxIdleTime(15 * time.Minute)
+
+	if err := sqlDB.Ping(); err != nil {
+		return nil, fmt.Errorf("ping database: %w", err)
+	}
 
 	log.Println("Database connection successful")
 	return db, nil
