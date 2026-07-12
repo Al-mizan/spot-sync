@@ -35,10 +35,12 @@ func (cv *CustomValidator) Validate(i any) error {
 }
 
 func Start(db *gorm.DB, cfg *config.Config) {
-	if cfg.Environment == "development" {
-		db.AutoMigrate(&user.User{}, &zone.ParkingZone{}, &reservation.Reservation{})
+	// Automatically migrate the schema across all environments for now
+	// This ensures Render and other deployments automatically get the latest schema (like deleted_at)
+	err := db.AutoMigrate(&user.User{}, &zone.ParkingZone{}, &reservation.Reservation{})
+	if err != nil {
+		fmt.Printf("Error running automigrate: %v\n", err)
 	}
-
 	e := echo.New()
 
 	e.HTTPErrorHandler = func(c *echo.Context, err error) {
